@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Télécharger CSV</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='photo_mae.png') }}" alt="Logo">
+        </a>
+        <a href="{{ url_for('static', filename='User_Manual.pdf') }}" class="download-button" download>
+            User Manual
+        </a>
+    </header>
+    <div class="container">
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+        <div class="sidebar" id="sidebar">
+
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('data_formats') }}">Data Formats</a></li>
+                <li><a href="{{ url_for('tutorials') }}">Tutorials</a></li>
+                <li><a href="{{ url_for('maestria') }}">What is Maestria?</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-content" id="sidebar-content">
+            <h2>Upload your datas</h2>
+            <form method="post" action="/upload" enctype="multipart/form-data">
+                <label for="file">Select files <br> .csv or .xlsx </label>
+                <input type="file" name="file" id="file" multiple accept=".csv,.xlsx" onchange="handleFileSelection()">
+                <div id="file-names"></div>
+
+                <div class="select-container">
+                    <h5 for="orientation">Choose CSV orientation:</h5>
+                    <select name="orientation" id="orientation" class="styled-select">
+                        <option value="rows">Rows</option>
+                        <option value="columns">Columns</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Submit" id="upload-btn" disabled>
+            </form>
+
+            <form method="post" action="/submit-answers">
+                <h3>Formulary :</h3>
+                <div class="vertical-separator"></div>
+                <h4>ECG</h4>
+                <label for="question1">Var1:</label>
+                <input type="number" name="question1" id="question1" step="any" value="0" required>
+                <br>
+                <label for="question2">Var2 :</label>
+                <input type="number" name="question2" id="question2" step="any" value="0" required>
+                <br>
+                <label for="question3">Var3 :</label>
+                <input type="number" name="question3" id="question3" step="any" value="0" required>
+                <br>
+                <label for="question4">Var4 :</label>
+                <input type="number" name="question4" id="question4" step="any" value="0" required>
+                <br>
+                <div class="vertical-separator"></div>
+                <h4>Clinical</h4>
+                <label for="question5">Var5 :</label>
+                <input type="number" name="question5" id="question5" step="any" value="0" required>
+                <br>
+                <label for="question6">Var6 :</label>
+                <input type="number" name="question6" id="question6" step="any" value="0" required>
+                <br>
+                <div class="vertical-separator"></div>
+                <h4>Metabolites</h4>
+                <label for="question7">Var7 :</label>
+                <input type="number" name="question7" id="question7" step="any" value="0" required>
+                <br>
+                <label for="question8">Var8 :</label>
+                <input type="number" name="question8" id="question8" step="any" value="0" required>
+                <br>
+                <label for="question9">Var9 :</label>
+                <input type="number" name="question9" id="question9" step="any" value="0" required>
+                <br>
+                <input type="submit" value="Submit Answers" class="button-style">
+            </form>
+        </div>
+
+    </div>
+    <div class="main-content aligned-content">
+        <h1>Exemple3</h1>
+        <ul class="variables-list">
+            <b>Score 1 : </b>
+            <li>- Var1 : </li>
+            <li>- Var2 : </li>
+            <li>- Var3 : </li>
+            <li>- Var4 : </li>
+
+
+        </ul>
+
+        <ul class="variables-list">
+            <b>Score 2 : </b>
+            <li>- Var5 : </li>
+            <li>- Var6 : </li>
+        </ul>
+
+        <ul class="variables-list">
+            <b>Score 3 : </b>
+            <li>- Var7 : </li>
+            <li>- Var8 : </li>
+            <li>- Var9 : </li>
+        </ul>
+
+    </div>
+</body>
+</html>

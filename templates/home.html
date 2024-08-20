@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Télécharger CSV</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='photo_mae.png') }}" alt="Logo">
+        </a>
+        <a href="{{ url_for('static', filename='User_Manual.pdf') }}" class="download-button" download>
+            User Manual
+        </a>
+    </header>
+    <div class="container">
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+        <div class="sidebar" id="sidebar">
+
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('data_formats') }}">Data Formats</a></li>
+                <li><a href="{{ url_for('tutorials') }}">Tutorials</a></li>
+                <li><a href="{{ url_for('maestria') }}">What is Maestria?</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <div class="main-container">
+        <div class="button-container">
+            <button class="index-button" onclick="window.location.href='/index'">Echocardiography <br> strain</button>
+            <button class="index-button" onclick="window.location.href='/exemple2'">Exemple 2</button>
+            <button class="index-button" onclick="window.location.href='/exemple3'">Exemple 3</button>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="button-container">
+            <button class="index-button" onclick="window.location.href='/index'">Example 4</button>
+            <button class="index-button" onclick="window.location.href='/index'">Exemple 5</button>
+            <button class="index-button" onclick="window.location.href='/index'">Exemple 6</button>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="button-container">
+            <button class="index-button" onclick="window.location.href='/index'">Exemple 7</button>
+            <button class="index-button" onclick="window.location.href='/index'">Exemple 8</button>
+
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Télécharger CSV</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='photo_mae.png') }}" alt="Logo">
+        </a>
+        <a href="{{ url_for('static', filename='User_Manual.pdf') }}" class="download-button" download>
+            User Manual
+        </a>
+    </header>
+    <div class="container">
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+        <div class="sidebar" id="sidebar">
+
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('data_formats') }}">Data Formats</a></li>
+                <li><a href="{{ url_for('tutorials') }}">Tutorials</a></li>
+                <li><a href="{{ url_for('maestria') }}">What is Maestria?</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <h1 class="header-colored-text">MAESTRIA</h1>
+            <p class="colored-text">
+                <em>Machine Learning and Artificial Intelligence for Early Detection of Stroke and Atrial Fibrillation</em>
+            </p>
+            <p class="colored-text2">
+             &nbsp;The MAESTRIA project, focused on heart diseases, aims to improve the diagnosis and management of <br> atrial fibrillation through artificial intelligence. This project is supported by a consortium of 18 <br> organizations :
+
+            </p>
+            <p class="colored-text bottom-text">
+                 <img src="{{ url_for('static', filename='photo_labos.png') }}" alt="Logo" width="1100" height="300">
+
+
+            </p>
+        </div>
+    </div>
+</body>
+</html>

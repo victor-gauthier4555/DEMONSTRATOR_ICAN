@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphiques des Fichiers CSV</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='photo_mae.png') }}" alt="Logo">
+        </a>
+        <a href="{{ url_for('static', filename='User_manual.pdf') }}" class="download-button" download>
+            User Manual
+        </a>
+    </header>
+    <div class="container">
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+        <div class="sidebar" id="sidebar">
+
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('data_formats') }}">Data Formats</a></li>
+                <li><a href="{{ url_for('tutorials') }}">Tutorials</a></li>
+                <li><a href="{{ url_for('maestria') }}">What is Maestria?</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1 class="header-colored-text">ERROR ON YOUR DATA, PLEASE CHECK THE USER MANUAL</h1>
+
+
+        </div>
+    </div>
+</body>
+</html>
