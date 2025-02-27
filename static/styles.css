@@ -1,7 +1,7 @@
 /* Styles for the body of the page */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
+    background-color: white;
     color: #333;
     margin: 0;
     padding: 0;
@@ -362,6 +362,7 @@ h5 {
     justify-content: center;
     gap: 20px;
     text-align: center;
+    margin-top: 10px;
 }
 
 /* Styles pour les boutons */
@@ -372,7 +373,7 @@ h5 {
     border: 3px solid #47a2a2;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 32px;
+    font-size: 22px;
     transition: background-color 0.3s, border-color 0.3s;
     text-align: center;
     text-decoration: none;
@@ -381,6 +382,7 @@ h5 {
     width: 300px;
     height: 120px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-top: 100px;
 
 }
 
@@ -450,4 +452,81 @@ h5 {
 
 .data-table a:hover {
     text-decoration: underline;
+}
+
+
+p33 {
+    color : #e7eee9
+}
+
+/* Container for title and button */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.header-container h1 {
+    margin: 0;
+    font-size: 40px;
+    color: #47a2a2;
+}
+
+.header-container .home-button {
+    background-color: #47a2a2;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.header-container .home-button:hover {
+    background-color: #3a8b8b;
+}
+
+/* Styles pour les boutons */
+.index-button2 {
+    background-color: #e8e8e8;
+    color: #47a2a2;
+    padding: 15px 30px;
+    border: 3px solid #47a2a2;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.3s, border-color 0.3s;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    width: 150px;
+    height: 35px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-right: 40px;
+
+}
+
+.index-button2:hover {
+    background-color: #e0f7f7;
+    border-color: #3a8b8b;
+}
+
+.index-button2:focus {
+    outline: none;
+    box-shadow: 0 0 10px #47a2a2;
+}
+
+.image-container {
+    display: flex;               /* Active Flexbox pour aligner les images */
+    justify-content: center;     /* Centre les images horizontalement */
+    gap: 300px;                   /* Espace entre les deux images, modifiable selon ton besoin */
+    margin-top: 200px;            /* Espace au-dessus de la section images */
+}
+
+.image-container img {
+    width: 400px;                /* Garde la taille des images */
+    height: 165px;
 }

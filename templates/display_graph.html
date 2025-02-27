@@ -8,10 +8,10 @@
 </head>
 <body>
     <header>
-        <a href="{{ url_for('home') }}">
+        <a href="{{ url_for('maestria') }}">
             <img src="{{ url_for('static', filename='photo_mae.png') }}" alt="Logo">
         </a>
-        <a href="{{ url_for('static', filename='User_Manual.pdf') }}" class="download-button" download>
+        <a href="{{ url_for('static', filename='ihu.jpg') }}" class="download-button" download>
             User Manual
         </a>
     </header>
@@ -20,7 +20,7 @@
         <div class="sidebar" id="sidebar">
 
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('maestria') }}">Home</a></li>
                 <li><a href="{{ url_for('data_formats') }}">Data Formats</a></li>
                 <li><a href="{{ url_for('maestria') }}">Tutorials</a></li>
                 <li><a href="{{ url_for('maestria') }}">What is Maestria?</a></li>

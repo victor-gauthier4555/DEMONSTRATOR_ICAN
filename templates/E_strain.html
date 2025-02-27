@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <a href="{{ url_for('home') }}">
+        <a href="{{ url_for('maestria') }}">
             <img src="{{ url_for('static', filename='photo_mae.png') }}" alt="Logo">
         </a>
         <a href="{{ url_for('static', filename='User_Manual.pdf') }}" class="download-button" download>
@@ -20,7 +20,7 @@
         <div class="sidebar" id="sidebar">
 
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('maestria') }}">Home</a></li>
                 <li><a href="{{ url_for('data_formats') }}">Data Formats</a></li>
                 <li><a href="{{ url_for('tutorials') }}">Tutorials</a></li>
                 <li><a href="{{ url_for('maestria') }}">What is Maestria?</a></li>
@@ -49,35 +49,35 @@
                 <h3>Formulary :</h3>
                 <div class="vertical-separator"></div>
                 <h4>ECG</h4>
-                <label for="question1">M0_LAESV_3D:</label>
+                <label for="question1">M0_LAESV_3D: </label>
                 <input type="number" name="question1" id="question1" step="any" value="0" required>
                 <br>
-                <label for="question2">M0_LVED_3D :</label>
+                <label for="question2">M0_LVED_3D : </label>
                 <input type="number" name="question2" id="question2" step="any" value="0" required>
                 <br>
-                <label for="question3">M0_LA_tot_EmF :</label>
+                <label for="question3">M0_LA_tot_EmF : </label>
                 <input type="number" name="question3" id="question3" step="any" value="0" required>
                 <br>
-                <label for="question4">M0_LA_strain_conduit :</label>
+                <label for="question4">M0_LA_strain_conduit : </label>
                 <input type="number" name="question4" id="question4" step="any" value="0" required>
                 <br>
                 <div class="vertical-separator"></div>
                 <h4>Clinical</h4>
-                <label for="question5">GLYC :</label>
+                <label for="question5">GLYC : </label>
                 <input type="number" name="question5" id="question5" step="any" value="0" required>
                 <br>
-                <label for="question6">Urea :</label>
+                <label for="question6">Urea : </label>
                 <input type="number" name="question6" id="question6" step="any" value="0" required>
                 <br>
                 <div class="vertical-separator"></div>
                 <h4>Metabolites</h4>
-                <label for="question7">Arginine :</label>
+                <label for="question7">Arginine : </label>
                 <input type="number" name="question7" id="question7" step="any" value="0" required>
                 <br>
-                <label for="question8">Met_MetSufoxide :</label>
+                <label for="question8">Met_MetSufoxide : </label>
                 <input type="number" name="question8" id="question8" step="any" value="0" required>
                 <br>
-                <label for="question9">Kynurenine :</label>
+                <label for="question9">Kynurenine : </label>
                 <input type="number" name="question9" id="question9" step="any" value="0" required>
                 <br>
                 <input type="submit" value="Submit Answers" class="button-style">
@@ -86,28 +86,32 @@
 
     </div>
     <div class="main-content aligned-content">
-        <h1>Echocardiography Strain</h1>
+        <div class="header-container">
+                <h1>Echocardiography Strain</h1>
+                <a href="https://www.sciencedirect.com/science/article/pii/S1875213624000160?via%3Dihub" class="index-button2">See the paper</a>
+            </div>
+
         <ul class="variables-list">
             <b>Score ECG : </b>
-            <li>- M0_LVESV_3D : </li>
-            <li>- M0_LVED_3D : </li>
-            <li>- M0_LA_tot_EmF : </li>
-            <li>- M0_LA_strain_conduit : </li>
+            <li>- M0_LVESV_3D : <i>Left Ventricular End-Systolic Volume</i></li>
+            <li>- M0_LVED_3D : <i>Left Ventricular End-Diastolic Volume</i></li>
+            <li>- M0_LA_tot_EmF : <i>Left Atrium Emptying Fraction</i></li>
+            <li>- M0_LA_strain_conduit : <i>Left Atrial Strain</i></li>
 
 
         </ul>
 
         <ul class="variables-list">
             <b>Score Clinical : </b>
-            <li>- GLYC : </li>
-            <li>- Urea : </li>
+            <li>- GLYC : <i>Glycémie</i> </li>
+            <li>- Urea </li>
         </ul>
 
         <ul class="variables-list">
             <b>Score Metabolites : </b>
-            <li>- Arginine : </li>
-            <li>- Met_MetSufoxide : </li>
-            <li>- Kynurenine : </li>
+            <li>- Arginine </li>
+            <li>- Met_MetSufoxide : <i>Methionine Sulfoxide</i></li>
+            <li>- Kynurenine </li>
         </ul>
 
     </div>

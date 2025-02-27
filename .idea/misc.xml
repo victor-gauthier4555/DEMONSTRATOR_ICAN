@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="IHU_ICAN_WEB" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="IHU_ICAN_WEB" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11" project-jdk-type="Python SDK" />
 </project>

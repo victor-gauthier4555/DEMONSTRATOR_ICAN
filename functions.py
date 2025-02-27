@@ -5,6 +5,7 @@ from score import score_ECG, score_Clinical, score_Metabolites
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import plotly.graph_objects as go
 
 
 
@@ -68,27 +69,29 @@ def process_csv1(filepath, plot_folder):
         plot_individual_paths = []
         scores = []
 
+        type_of_score = [0, 0, 0]
+
 
 
         # Calculate scores based on data
         if all(val != 0 for val in data[:4]):
             score1 = score_ECG(data[0], data[1], data[2], data[3])
-            plot_individual_paths.append(generate_score_plot(score1, f"{patient_name}_1", "Graph Score ECG", plot_folder))
             scores.append(score1)
+            type_of_score[0] = 1
 
         if all(val != 0 for val in data[4:6]):
             score2 = score_Clinical(data[4], data[5])
-            plot_individual_paths.append(generate_score_plot(score2, f"{patient_name}_2", "Graph Score Clinical", plot_folder))
             scores.append(score2)
+            type_of_score[1] = 1
 
         if all(val != 0 for val in data[6:9]):
             score3 = score_Metabolites(data[6], data[7], data[8])
-            plot_individual_paths.append(generate_score_plot(score3, f"{patient_name}_3", "Graph Score Metabolites", plot_folder))
             scores.append(score3)
+            type_of_score[2] = 1
 
         if scores:
             total_score = sum(scores)
-            plot_individual_paths.append(generate_score_plot(total_score, f"{patient_name}_4", "Graph Combined Score", plot_folder))
+            plot_individual_paths.append(generate_score_plot(total_score, f"{patient_name}_4", "Graph Combined Score", plot_folder, type_of_score))
 
         plot_paths.append({
             'patient_name': i,
@@ -114,9 +117,10 @@ def process_csv2(filepath, plot_folder):
                 'Met_MetSufoxide', 'Kynurenine']
 
     # Check if the first cell is not numeric (indicates incorrect orientation)
-    if not isinstance(df.iloc[0, 0], (int, float)):
+    """if not isinstance(df.iloc[0, 0], (int, float)):
+        print(isinstance(df.iloc[0, 0], (int, float)))
         d = True
-        return [], d
+        return [], d"""
 
     # Add missing keywords as columns to the DataFrame
     for key in keywords:
@@ -130,35 +134,41 @@ def process_csv2(filepath, plot_folder):
     for i, patient_name in enumerate(patient_names, start=1):
         data = df.iloc[i - 1]
 
-        if np.isnan(data[0]):  # Skip rows without valid data
+        """if np.isnan(data):  # Skip rows without valid data
             logging.warning(f"Colonne {i} ({patient_name}) vide ou ne contenant pas de données valides.")
-            continue
+            continue"""
 
         data = data.fillna(0)  # Fill NaN values with zero
         plot_individual_paths = []
         scores = []
+
+        type_of_score=[0,0,0]
 
 
 
         # Calculate scores based on data
         if all(val != 0 for val in data[:4]):
             score1 = score_ECG(data[0], data[1], data[2], data[3])
-            plot_individual_paths.append(generate_score_plot(score1, f"{patient_name}_1", "Graph Score ECG", plot_folder))
             scores.append(score1)
+            type_of_score[0] = 1
+
 
         if all(val != 0 for val in data[4:6]):
             score2 = score_Clinical(data[4], data[5])
-            plot_individual_paths.append(generate_score_plot(score2, f"{patient_name}_2", "Graph Score Clinical", plot_folder))
             scores.append(score2)
+            type_of_score[1] = 1
 
         if all(val != 0 for val in data[6:9]):
             score3 = score_Metabolites(data[6], data[7], data[8])
-            plot_individual_paths.append(generate_score_plot(score3, f"{patient_name}_3", "Graph Score Metabolites", plot_folder))
             scores.append(score3)
+            type_of_score[2] = 1
+
+
+        score_type=type_of_score[0]*4+type_of_score[1]*2+type_of_score[2]
 
         if scores:
             total_score = sum(scores)
-            plot_individual_paths.append(generate_score_plot(total_score, f"{patient_name}_4", "Graph Combined Score", plot_folder))
+            plot_individual_paths.append(generate_score_plot(total_score, f"{patient_name}_4", "Graph Combined Score", plot_folder,score_type))
 
         plot_paths.append({
             'patient_name': i,
@@ -168,6 +178,8 @@ def process_csv2(filepath, plot_folder):
     if (len(plot_individual_paths)==0):
         d= True
         return [], d
+
+
 
 
 
@@ -215,26 +227,28 @@ def process_xlsx1(filepath, plot_folder):
         plot_individual_paths = []
         scores = []
 
+        type_of_score = [0, 0, 0]
+
 
         # Calculate scores based on data
         if all(val != 0 for val in data[:4]):
             score1 = score_ECG(data[0], data[1], data[2], data[3])
-            plot_individual_paths.append(generate_score_plot(score1, f"{patient_name}_1", "Graph Score ECG", plot_folder))
             scores.append(score1)
+            type_of_score[0] = 1
 
         if all(val != 0 for val in data[4:6]):
             score2 = score_Clinical(data[4], data[5])
-            plot_individual_paths.append(generate_score_plot(score2, f"{patient_name}_2", "Graph Score Clinical", plot_folder))
             scores.append(score2)
+            type_of_score[1] = 1
 
         if all(val != 0 for val in data[6:9]):
             score3 = score_Metabolites(data[6], data[7], data[8])
-            plot_individual_paths.append(generate_score_plot(score3, f"{patient_name}_3", "Graph Score Metabolites", plot_folder))
             scores.append(score3)
+            type_of_score[2] = 1
 
         if scores:
             total_score = sum(scores)
-            plot_individual_paths.append(generate_score_plot(total_score, f"{patient_name}_4", "Graph Combined Score", plot_folder))
+            plot_individual_paths.append(generate_score_plot(total_score, f"{patient_name}_4", "Graph Combined Score", plot_folder,type_of_score))
 
         plot_paths.append({
             'patient_name': i,
@@ -285,21 +299,23 @@ def process_xlsx2(filepath, plot_folder):
         plot_individual_paths = []
         scores = []
 
+        type_of_score = [0, 0, 0]
+
         # Calculate scores based on data
         if all(val != 0 for val in data[:4]):
             score1 = score_ECG(data[0], data[1], data[2], data[3])
-            plot_individual_paths.append(generate_score_plot(score1, f"{patient_name}_1", "Graph Score ECG", plot_folder))
             scores.append(score1)
+            type_of_score[0] = 1
 
         if all(val != 0 for val in data[4:6]):
             score2 = score_Clinical(data[4], data[5])
-            plot_individual_paths.append(generate_score_plot(score2, f"{patient_name}_2", "Graph Score Clinical", plot_folder))
             scores.append(score2)
+            type_of_score[1] = 1
 
         if all(val != 0 for val in data[6:9]):
             score3 = score_Metabolites(data[6], data[7], data[8])
-            plot_individual_paths.append(generate_score_plot(score3, f"{patient_name}_3", "Graph Score Metabolites", plot_folder))
             scores.append(score3)
+            type_of_score[2] = 1
 
         if scores:
             total_score = sum(scores)
@@ -316,28 +332,132 @@ def process_xlsx2(filepath, plot_folder):
 
     return plot_paths, d
 
-def generate_score_plot(score, index, name, plot_folder):
-    fig, ax = plt.subplots()
 
-    ax.axhline(y=-1, color='r', linestyle='--')  # Red dashed line at y = -1
-    ax.axhline(y=1, color='b', linestyle='--')  # Blue dashed line at y = 1
 
-    ax.plot(0, score, 'gx', markersize=10, markeredgewidth=2, label=f'y = {score}')  # Green 'x' marker
+def generate_score_plot(score, index, name, plot_folder, score_type):
+    print(score)
+    print(index)
+    print(plot_folder)
+    print(score_type)
+    """
+    Génère un graphique de score avec des éléments améliorés en utilisant Plotly.
+    Enregistre le graphique au format PNG.
+    """
+    texte_score=""
+    if(score_type==1):
+        texte_score="Score obtained with Metabolites data"
+    if (score_type == 2):
+        texte_score = "Score obtained with Clinical data"
+    if (score_type == 3):
+        texte_score = "Score obtained with Clinical and Metabolites data"
+    if (score_type == 4):
+        texte_score = "Score obtained with ECG data"
+    if (score_type == 5):
+        texte_score = "Score obtained with ECG and Metabolites data"
+    if (score_type == 6):
+        texte_score = "Score obtained with ECG and Clinical"
+    if (score_type == 7):
+        texte_score = "Score obtained with ECG, Clinical and Metabolites data"
 
-    ax.set_ylabel('y')
-    ax.legend()
+    print(texte_score)
 
-    ax.set_ylim(-10, 10)
 
-    ax.grid(True)
+    # Création du graphique
+    fig = go.Figure()
 
-    plt.title(name)
+    # Ajout d'une ligne horizontale passant par le point carré (réduite en longueur)
+    fig.add_shape(type="line", x0=-0.1, x1=0.1, y0=score, y1=score,
+                  line=dict(color='#3a8b8b', width=2))  # Réduire la longueur de la ligne
 
-    # Add text annotations to the plot
-    ax.text(0.02, 6, 'Sick', fontsize=10, color='blue', ha='center')
-    ax.text(0.02, -7, 'Not sick', fontsize=10, color='red', ha='center')
+    # Ajout de la zone grisée entre y=-1 et y=1
+    fig.add_shape(type="rect",
+                  x0=-0.2, x1=0.2, y0=-1, y1=1,
+                  fillcolor="grey", opacity=0.3, line_width=0)
+
+    # Ajout des lignes de référence
+    fig.add_shape(type="line", x0=-0.2, x1=0.2, y0=-1, y1=-1,
+                  line=dict(color="#3a8b8b", dash="dash"))
+    fig.add_shape(type="line", x0=-0.2, x1=0.2, y0=1, y1=1,
+                  line=dict(color="#3a8b8b", dash="dash"))
+
+
+
+    # Tracé du score avec un marqueur carré
+    fig.add_trace(go.Scatter(x=[0], y=[score],
+                             mode='markers',
+                             marker=dict(size=15, color='#3a8b8b', symbol='square',  # Change ici 'x' en 'square'
+                                         line=dict(width=2, color='black')),  # Personnalisation du contour du carré
+                             name=f'Score: {score}'))
+
+    # Annotations pour 'Positive' et 'Negative'
+    fig.add_annotation(x=0.05, y=6, text="Positive", showarrow=False, font=dict(color="#3a8b8b", size=12))
+    fig.add_annotation(x=0.05, y=-7, text="Negative", showarrow=False, font=dict(color="#3a8b8b", size=12))
+
+    # Ajouter une annotation pour l'index (légende)
+    fig.add_annotation(
+        x=0.95, y=0.95,  # Position en haut à droite (en coordonnées relatives)
+        xref="paper", yref="paper",
+        text=f'<b>Score</b>: {score}',  # Texte de l'index (légende)
+        showarrow=False,
+        bordercolor="#3a8b8b",  # Couleur de la bordure (même que le carré)
+        borderwidth=2,  # Largeur de la bordure
+        bgcolor="#5b7173",  # Couleur de fond du carré de légende
+        font=dict(size=12, color="white"),  # Style du texte
+        align="left"  # Alignement du texte
+    )
+
+    # Ajouter une annotation pour le texte_score dans le bas du graphique
+    fig.add_annotation(
+        x=0, y=-9.5,  # Position à l'intérieur du graphique, proche du bas
+        xref="x", yref="y",  # Utilisation des axes x et y pour positionner le texte dans la zone de traçage
+        text=texte_score,  # Texte du score
+        showarrow=False,
+        font=dict(size=14, color="#3a8b8b"),  # Style du texte
+        align="center"
+    )
+
+    # Configuration de l'apparence du graphique, suppression du quadrillage
+    fig.update_layout(
+                      yaxis=dict(range=[-10, 10], showgrid=False, zeroline=False,
+                                 showline=False, showticklabels=False),  # Désactivation des axes y
+                      xaxis=dict(showticklabels=False, showgrid=False, zeroline=False, showline=False),
+                      # Désactivation du quadrillage x
+                      showlegend=False,
+                      plot_bgcolor='#e7eee9',  # Fond du graphique
+                      paper_bgcolor='#5b7173',
+                      margin=dict(l=10, r=10, t=10, b=10))  # Fond général
+
+    # Sauvegarde du graphique au format PNG
     graph_path = os.path.join(plot_folder, f'graph_{index}.png')
-    plt.savefig(graph_path)  # Save the plot
-    plt.close()
+    fig.write_image(graph_path, width=700, height=500, scale=3)  # Sauvegarde en PNG
 
     return f'{os.path.basename(plot_folder)}/graph_{index}.png'
+
+import psutil
+import time
+
+def measure_cpu_usage(func, *args, **kwargs):
+    # Initialiser les mesures du CPU
+    process = psutil.Process()
+    cpu_start = process.cpu_percent(interval=None)
+    start_time = time.time()
+
+    # Appeler la fonction cible
+    result = func(*args, **kwargs)
+
+    # Mesurer le CPU après l'exécution
+    cpu_end = process.cpu_percent(interval=None)
+    end_time = time.time()
+
+    # Calculer l'utilisation totale du CPU
+    cpu_usage = cpu_end - cpu_start
+    elapsed_time = end_time - start_time
+
+    print(f"Utilisation du CPU : {cpu_usage:.2f}%")
+    print(f"Temps écoulé : {elapsed_time:.2f} secondes")
+
+    return result
+# Test du code
+measure_cpu_usage(generate_score_plot, -73.07827348, '3_4', 'eldns', 'static/plots1', 7)
+
+

@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <a href="{{ url_for('home') }}">
+        <a href="{{ url_for('maestria') }}">
             <img src="{{ url_for('static', filename='photo_mae.png') }}" alt="Logo">
         </a>
         <a href="{{ url_for('static', filename='User_manual.pdf') }}" class="download-button" download>
@@ -20,7 +20,7 @@
         <div class="sidebar" id="sidebar">
 
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('maestria') }}">Home</a></li>
                 <li><a href="{{ url_for('data_formats') }}">Data Formats</a></li>
                 <li><a href="{{ url_for('tutorials') }}">Tutorials</a></li>
                 <li><a href="{{ url_for('maestria') }}">What is Maestria?</a></li>
@@ -32,9 +32,9 @@
             <div style="text-align: center;">
                 {% for patient in plot_paths %}
                     <div>
-                        <h2>Patient {{ patient.patient_name }}</h2>
+                        <h2>ID {{ patient.patient_name }}</h2>
                         {% for plot_path in patient.plots %}
-                            <img src="{{ url_for('static', filename=plot_path) }}" alt="Graphique des réponses">
+                            <img src="{{ url_for('static', filename=plot_path) }}" alt="Graphique des réponses", width="700", height="500">
                             <br>
                             <a href="{{ url_for('static', filename=plot_path) }}" download="graphique_{{ loop.index }}.png" class="button-style">Download</a>
                             <br>
