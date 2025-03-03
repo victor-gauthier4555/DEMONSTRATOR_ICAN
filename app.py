@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, url_for, send_from_directory, redirect
 import os
 
-from prometheus_client import start_http_server
 from werkzeug.utils import secure_filename
 import logging
 import psutil  # Pour suivre l'utilisation du CPU
