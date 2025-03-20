@@ -34,6 +34,19 @@
                 <input type="file" name="file" id="file" multiple accept=".csv,.xlsx" onchange="handleFileSelection()">
                 <div id="file-names"></div>
 
+                <label class="custom-checkbox">
+                    <input type="checkbox" name="use_default_csv" id="use_default_csv">
+                    <span class="checkmark"></span>
+                    <a href="{{ url_for('static', filename='default.csv') }}" download class="checkbox-label">
+                        Default CSV file
+                    </a>
+                </label>
+
+
+
+
+
+
                 <div class="select-container">
                     <h5 for="orientation">Choose CSV orientation:</h5>
                     <select name="orientation" id="orientation" class="styled-select">
@@ -49,16 +62,16 @@
                 <h3>Formulary :</h3>
                 <div class="vertical-separator"></div>
                 <h4>ECG</h4>
-                <label for="question1">M0_LAESV_3D: </label>
+                <label for="question1">M0-LAESV-3D: </label>
                 <input type="number" name="question1" id="question1" step="any" value="0" required>
                 <br>
-                <label for="question2">M0_LVED_3D : </label>
+                <label for="question2">M0-LVED-3D : </label>
                 <input type="number" name="question2" id="question2" step="any" value="0" required>
                 <br>
-                <label for="question3">M0_LA_tot_EmF : </label>
+                <label for="question3">M0-LA-tot-EmF : </label>
                 <input type="number" name="question3" id="question3" step="any" value="0" required>
                 <br>
-                <label for="question4">M0_LA_strain_conduit : </label>
+                <label for="question4">M0-LA-strain-conduit : </label>
                 <input type="number" name="question4" id="question4" step="any" value="0" required>
                 <br>
                 <div class="vertical-separator"></div>
@@ -74,7 +87,7 @@
                 <label for="question7">Arginine : </label>
                 <input type="number" name="question7" id="question7" step="any" value="0" required>
                 <br>
-                <label for="question8">Met_MetSufoxide : </label>
+                <label for="question8">Met-MetSufoxide : </label>
                 <input type="number" name="question8" id="question8" step="any" value="0" required>
                 <br>
                 <label for="question9">Kynurenine : </label>
@@ -93,10 +106,10 @@
 
         <ul class="variables-list">
             <b>Score ECG : </b>
-            <li>- M0_LVESV_3D : <i>Left Ventricular End-Systolic Volume</i></li>
-            <li>- M0_LVED_3D : <i>Left Ventricular End-Diastolic Volume</i></li>
-            <li>- M0_LA_tot_EmF : <i>Left Atrium Emptying Fraction</i></li>
-            <li>- M0_LA_strain_conduit : <i>Left Atrial Strain</i></li>
+            <li>- M0-LVESV-3D : <i>Left Ventricular End-Systolic Volume</i></li>
+            <li>- M0-LVED-3D : <i>Left Ventricular End-Diastolic Volume</i></li>
+            <li>- M0-LA-tot-EmF : <i>Left Atrium Emptying Fraction</i></li>
+            <li>- M0-LA-strain-conduit : <i>Left Atrial Strain</i></li>
 
 
         </ul>
@@ -110,7 +123,7 @@
         <ul class="variables-list">
             <b>Score Metabolites : </b>
             <li>- Arginine </li>
-            <li>- Met_MetSufoxide : <i>Methionine Sulfoxide</i></li>
+            <li>- Met-MetSufoxide : <i>Methionine Sulfoxide</i></li>
             <li>- Kynurenine </li>
         </ul>
 

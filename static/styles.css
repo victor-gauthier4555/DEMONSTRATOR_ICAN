@@ -356,35 +356,8 @@ h5 {
     margin-top: 30px;
 }
 
-/* Styles pour le conteneur des boutons */
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    text-align: center;
-    margin-top: 10px;
-}
 
-/* Styles pour les boutons */
-.index-button {
-    background-color: #e8e8e8;
-    color: #47a2a2;
-    padding: 15px 30px;
-    border: 3px solid #47a2a2;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 22px;
-    transition: background-color 0.3s, border-color 0.3s;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    white-space: nowrap;
-    width: 300px;
-    height: 120px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    margin-top: 100px;
 
-}
 
 .index-button:hover {
     background-color: #e0f7f7;
@@ -529,4 +502,115 @@ p33 {
 .image-container img {
     width: 400px;                /* Garde la taille des images */
     height: 165px;
+}
+/* Conteneur de la case à cocher */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+    background: none !important; /* Supprime toute couleur de fond */
+    border: none !important; /* Supprime toute bordure */
+    padding: 0;
+    box-shadow: none !important; /* Supprime tout effet d'ombre */
+}
+
+/* Cacher l'input natif */
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Case à cocher personnalisée */
+.custom-checkbox .checkmark {
+    width: 20px;
+    height: 20px;
+    background-color: white !important; /* Fond blanc par défaut */
+    border: 2px solid #1f255b !important; /* Bordure bleue */
+    border-radius: 4px;
+    position: relative;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Supprimer tout effet au survol */
+.custom-checkbox:hover .checkmark,
+.custom-checkbox:focus .checkmark {
+    background-color: white !important; /* Pas de changement au hover */
+    border-color: #1f255b !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Supprimer le fond bleu quand la case est cochée */
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: white !important; /* Garde le fond blanc */
+    border-color: #1f255b !important; /* Bordure reste bleue */
+}
+
+/* Ajouter un V de validation quand la case est cochée */
+.custom-checkbox input:checked ~ .checkmark::after {
+    content: "✔";  /* Icône de validation */
+    font-size: 16px;
+    color: #1f255b; /* Couleur du V */
+    font-weight: bold;
+    position: absolute;
+}
+
+/* Texte à côté de la case */
+.checkbox-label {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Conteneur principal pour aligner les boutons */
+.buttons-wrapper {
+    display: flex;
+    flex-direction: column; /* Met les button-container l'un en dessous de l'autre */
+    align-items: center; /* Centre les button-container */
+
+    width: 100%;
+    margin-top: 100px;
+}
+
+/* Styles pour le conteneur des boutons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
+
+/* Deuxième conteneur avec un bouton centré */
+.single-button {
+    justify-content: center;
+}
+
+/* Styles pour les boutons */
+.index-button {
+    background-color: #e8e8e8;
+    color: #47a2a2;
+    padding: 15px 30px;
+    border: 3px solid #47a2a2;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 22px;
+    transition: background-color 0.3s, border-color 0.3s;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    width: 300px;
+    height: 120px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+
 }

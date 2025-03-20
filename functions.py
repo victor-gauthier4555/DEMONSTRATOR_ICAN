@@ -433,31 +433,6 @@ def generate_score_plot(score, index, name, plot_folder, score_type):
 
     return f'{os.path.basename(plot_folder)}/graph_{index}.png'
 
-import psutil
-import time
 
-def measure_cpu_usage(func, *args, **kwargs):
-    # Initialiser les mesures du CPU
-    process = psutil.Process()
-    cpu_start = process.cpu_percent(interval=None)
-    start_time = time.time()
-
-    # Appeler la fonction cible
-    result = func(*args, **kwargs)
-
-    # Mesurer le CPU après l'exécution
-    cpu_end = process.cpu_percent(interval=None)
-    end_time = time.time()
-
-    # Calculer l'utilisation totale du CPU
-    cpu_usage = cpu_end - cpu_start
-    elapsed_time = end_time - start_time
-
-    print(f"Utilisation du CPU : {cpu_usage:.2f}%")
-    print(f"Temps écoulé : {elapsed_time:.2f} secondes")
-
-    return result
-# Test du code
-measure_cpu_usage(generate_score_plot, -73.07827348, '3_4', 'eldns', 'static/plots1', 7)
 
 

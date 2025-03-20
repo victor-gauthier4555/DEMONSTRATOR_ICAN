@@ -38,11 +38,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-# Fonction pour obtenir l'utilisation du CPU
-def get_cpu_usage():
-    process = psutil.Process(os.getpid())
-    cpu_usage = process.cpu_percent(interval=1)  # Intervalle de 1 seconde
-    print(f"CPU Usage: {cpu_usage:.2f}%", flush=True)
+
 
 
 
@@ -90,31 +86,43 @@ def index():
 # Route pour gérer l'upload de fichiers
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
-        return 'No files selected'
+    use_default_csv = request.form.get('use_default_csv')  # Vérifie si la case est cochée
 
-    # Afficher l'utilisation du CPU avant l'upload
-    get_cpu_usage()
-
-    files = request.files.getlist('file')  # Liste des fichiers uploadés
+    files = request.files.getlist('file') if 'file' in request.files else []
     orientation = request.form.get('orientation')  # Récupère l'orientation
 
     csv_files = [f for f in files if f and allowed_file(f.filename) and f.filename.lower().endswith('.csv')]
     xlsx_files = [f for f in files if f and allowed_file(f.filename) and f.filename.lower().endswith('.xlsx')]
 
+    # Si la case "Use default CSV" est cochée et qu'aucun fichier n'est uploadé
+    if use_default_csv and not csv_files and not xlsx_files:
+        default_csv_path = os.path.join('static', 'default.csv')  # Chemin du CSV par défaut
+
+        if not os.path.exists(default_csv_path):
+            return 'Default CSV file not found.', 400  # Retourne une erreur si le fichier est introuvable
+
+        # Traitement du fichier CSV par défaut
+        if orientation == 'columns':
+            plot_paths, d = process_csv1(default_csv_path, app.config['PLOT1_FOLDER'])
+        else:
+            plot_paths, d = process_csv2(default_csv_path, app.config['PLOT1_FOLDER'])
+
+        if d:
+            return redirect(url_for('error'))
+
+        return render_template('plot.html', plot_paths=plot_paths)
+
+    # Si aucun fichier n'a été sélectionné et la case n'est pas cochée
     if not (csv_files or xlsx_files):
-        return 'No valid .csv or .xlsx files selected.'
+        return 'No valid .csv or .xlsx files selected.', 400
 
     plot_paths = []
 
-    # Traite chaque fichier CSV
+    # Traite chaque fichier CSV uploadé
     for file in csv_files:
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
-
-        # Afficher l'utilisation du CPU après l'upload et avant le traitement CSV
-        get_cpu_usage()
 
         if orientation == 'columns':
             plot_paths, d = process_csv1(filepath, app.config['PLOT1_FOLDER'])
@@ -125,17 +133,12 @@ def upload_file():
             if d:
                 return redirect(url_for('error'))
 
-        # Afficher l'utilisation du CPU après le traitement CSV
-        get_cpu_usage()
-
-    # Traite chaque fichier XLSX
+    # Traite chaque fichier XLSX uploadé
     for file in xlsx_files:
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
 
-        # Afficher l'utilisation du CPU avant et après le traitement XLSX
-        get_cpu_usage()
         if orientation == 'columns':
             plot_paths, d = process_xlsx1(filepath, app.config['PLOT1_FOLDER'])
             if d:
@@ -145,15 +148,13 @@ def upload_file():
             if d:
                 return redirect(url_for('error'))
 
-        get_cpu_usage()
-
     return render_template('plot.html', plot_paths=plot_paths)
+
 
 
 @app.route('/submit-answers', methods=['POST'])
 def submit_answers():
-    # Afficher l'utilisation du CPU au début de la fonction
-    get_cpu_usage()
+
 
     # Récupère les données du formulaire
     m0_laesv_3d = float(request.form['question1'])
@@ -179,24 +180,24 @@ def submit_answers():
         score1 = score_ECG(data[0], data[1], data[2], data[3])
         plot_paths.append(generate_score_plot(score1, 1, "Graph Score ECG", app.config['PLOT2_FOLDER']))
         scores.append(score1)
-        get_cpu_usage()  # Utilisation du CPU après calcul de score ECG
+       # Utilisation du CPU après calcul de score ECG
 
     if all(val != 0 for val in data[4:6]):
         score2 = score_Clinical(data[4], data[5])
         plot_paths.append(generate_score_plot(score2, 2, "Graph Score Clinical", app.config['PLOT2_FOLDER']))
         scores.append(score2)
-        get_cpu_usage()  # Utilisation du CPU après calcul de score clinique
+     # Utilisation du CPU après calcul de score clinique
 
     if all(val != 0 for val in data[6:9]):
         score3 = score_Metabolites(data[6], data[7], data[8])
         plot_paths.append(generate_score_plot(score3, 3, "Graph Score Metabolites", app.config['PLOT2_FOLDER']))
         scores.append(score3)
-        get_cpu_usage()  # Utilisation du CPU après calcul de score métabolites
+      # Utilisation du CPU après calcul de score métabolites
 
     if scores:
         total_score = sum(scores)
         plot_paths.append(generate_score_plot(total_score, 4, "Graph Combined Score", app.config['PLOT2_FOLDER']))
-        get_cpu_usage()  # Utilisation du CPU après calcul du score combiné
+          # Utilisation du CPU après calcul du score combiné
 
     return redirect(url_for('display_graph', plot_paths=plot_paths))
 
