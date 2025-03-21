@@ -358,7 +358,8 @@ def generate_score_plot(score, index, name, plot_folder, score_type):
         texte_score = "Score obtained with ECG and Clinical"
     if (score_type == 7):
         texte_score = "Score obtained with ECG, Clinical and Metabolites data"
-
+    if(score_type == 8) :
+        texte_score = "Score for AF Progression"
     print(texte_score)
 
 

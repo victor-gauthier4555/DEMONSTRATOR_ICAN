@@ -13,3 +13,5 @@ def score_Metabolites (Arginine, Met_MetSufoxide, Kynurenine):
     return 36.33 - (3.79*Arginine) - (27.73*Met_MetSufoxide) + (3.60*Kynurenine)
 
 
+def score_AF(rhythme_ECG, age, antico, LA_d):
+    return -0.86*rhythme_ECG + 0.52*age + 0.47*antico + 0.41*LA_d

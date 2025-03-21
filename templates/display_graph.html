@@ -18,7 +18,6 @@
     <div class="container">
         <button id="menu-toggle" class="menu-toggle">☰</button>
         <div class="sidebar" id="sidebar">
-
             <ul>
                 <li><a href="{{ url_for('maestria') }}">Home</a></li>
                 <li><a href="{{ url_for('data_formats') }}">Data Formats</a></li>
@@ -28,13 +27,20 @@
             </ul>
         </div>
         <div class="main-content">
-            <h1 class="header-colored-text centered-text">Graph results</h1>
+
             <div style="text-align: center;">
                 {% for plot_path in plot_paths %}
                     <div>
-                        <img src="{{ url_for('static', filename=plot_path) }}" alt="Graphique des réponses">
+                        <img src="{{ url_for('static', filename=plot_path) }}"
+                             alt="Graphique des réponses"
+                             style="width: 500px; height: auto; display: block; margin: 0 auto;">
                         <br>
-                        <a href="{{ url_for('static', filename=plot_path) }}" download="graphique_{{ loop.index }}.png" class="button-style">Download</a>
+                        <a href="{{ url_for('static', filename=plot_path) }}"
+                           download="graphique_{{ loop.index }}.png"
+                           class="button-style"
+                           style="display: block; margin: 10px auto; width: 150px; padding: 10px; text-align: center;">
+                           Download
+                        </a>
                     </div>
                     <br>
                 {% endfor %}
@@ -43,6 +49,7 @@
     </div>
 </body>
 </html>
+
 
 
 

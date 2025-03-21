@@ -4,7 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 import logging
 import psutil  # Pour suivre l'utilisation du CPU
-from score import score_ECG, score_Clinical, score_Metabolites
+from score import score_ECG, score_Clinical, score_Metabolites, score_AF
 from functions import process_csv2, process_csv1, process_xlsx1, process_xlsx2, generate_score_plot
 from prometheus_flask_exporter import PrometheusMetrics
 
@@ -174,33 +174,56 @@ def submit_answers():
 
     plot_paths = []
     scores = []
+    score_data = 0
 
     # Calcul des scores
     if all(val != 0 for val in data[:4]):
+        score_data += 4
         score1 = score_ECG(data[0], data[1], data[2], data[3])
-        plot_paths.append(generate_score_plot(score1, 1, "Graph Score ECG", app.config['PLOT2_FOLDER']))
+        plot_paths.append(generate_score_plot(score1, 1, "Graph Score ECG", app.config['PLOT2_FOLDER'],4))
         scores.append(score1)
        # Utilisation du CPU après calcul de score ECG
 
     if all(val != 0 for val in data[4:6]):
+        score_data += 2
         score2 = score_Clinical(data[4], data[5])
-        plot_paths.append(generate_score_plot(score2, 2, "Graph Score Clinical", app.config['PLOT2_FOLDER']))
+        plot_paths.append(generate_score_plot(score2, 2, "Graph Score Clinical", app.config['PLOT2_FOLDER'],2))
         scores.append(score2)
      # Utilisation du CPU après calcul de score clinique
 
     if all(val != 0 for val in data[6:9]):
+        score_data += 1
         score3 = score_Metabolites(data[6], data[7], data[8])
-        plot_paths.append(generate_score_plot(score3, 3, "Graph Score Metabolites", app.config['PLOT2_FOLDER']))
+        plot_paths.append(generate_score_plot(score3, 3, "Graph Score Metabolites", app.config['PLOT2_FOLDER'],1))
         scores.append(score3)
       # Utilisation du CPU après calcul de score métabolites
 
     if scores:
         total_score = sum(scores)
-        plot_paths.append(generate_score_plot(total_score, 4, "Graph Combined Score", app.config['PLOT2_FOLDER']))
+        plot_paths.append(generate_score_plot(total_score, 4, "Graph Combined Score", app.config['PLOT2_FOLDER'],score_data))
           # Utilisation du CPU après calcul du score combiné
 
     return redirect(url_for('display_graph', plot_paths=plot_paths))
 
+
+
+
+@app.route('/submit-answers-af', methods=['POST'])
+def submit_answers_af():
+    # Récupère les données du formulaire
+    rythme_ECG = float(request.form['question1'])
+    age = float(request.form['question2'])
+    antico = float(request.form['question3'])
+    LA_d = float(request.form['question4'])
+
+    # Calcul du score AF
+    score_af = score_AF(rythme_ECG, age, antico, LA_d)
+
+    # Génération du graphique associé (si besoin)
+    plot_path = generate_score_plot(score_af, 5, "AF Progression Score", "static/plots2",8)
+
+    # Redirection vers une page affichant le résultat
+    return render_template('display_graph.html', plot_paths=[plot_path])
 
 @app.route('/display-graph')
 def display_graph():
