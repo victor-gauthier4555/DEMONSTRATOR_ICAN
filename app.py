@@ -180,7 +180,7 @@ def submit_answers():
     if all(val != 0 for val in data[:4]):
         score_data += 4
         score1 = score_ECG(data[0], data[1], data[2], data[3])
-        plot_paths.append(generate_score_plot(score1, 1, "Graph Score ECG", app.config['PLOT2_FOLDER'],4))
+        plot_paths.append(generate_score_plot(score1, 1, "Graph Score Echo", app.config['PLOT2_FOLDER'],4))
         scores.append(score1)
        # Utilisation du CPU après calcul de score ECG
 
