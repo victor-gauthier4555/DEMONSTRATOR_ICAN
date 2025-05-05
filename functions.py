@@ -351,13 +351,13 @@ def generate_score_plot(score, index, name, plot_folder, score_type):
     if (score_type == 3):
         texte_score = "Score obtained with Clinical and Metabolites data"
     if (score_type == 4):
-        texte_score = "Score obtained with ECG data"
+        texte_score = "Score obtained with Echo data"
     if (score_type == 5):
-        texte_score = "Score obtained with ECG and Metabolites data"
+        texte_score = "Score obtained with Echo and Metabolites data"
     if (score_type == 6):
-        texte_score = "Score obtained with ECG and Clinical"
+        texte_score = "Score obtained with Echo and Clinical"
     if (score_type == 7):
-        texte_score = "Score obtained with ECG, Clinical and Metabolites data"
+        texte_score = "Score obtained with Echo, Clinical and Metabolites data"
     if(score_type == 8) :
         texte_score = "Score for AF Progression"
     print(texte_score)
